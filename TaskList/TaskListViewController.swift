@@ -30,12 +30,7 @@ private extension TaskListViewController {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        navBarAppearance.backgroundColor = UIColor(
-            red: 21/255,
-            green: 101/255,
-            blue: 192/255,
-            alpha: 194/255
-        )
+        navBarAppearance.backgroundColor = UIColor(named: "milkBlue")
         
         
         navigationController?.navigationBar.standardAppearance = navBarAppearance
