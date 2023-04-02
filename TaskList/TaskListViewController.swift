@@ -16,7 +16,8 @@ final class TaskListViewController: UITableViewController {
     }
     
     private func addNewTask() {
-        
+        let taskVC = TaskViewController()
+        present(taskVC, animated: true)
     }
 }
 
