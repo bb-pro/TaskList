@@ -7,6 +7,40 @@
 
 import UIKit
 
+protocol ButtonFactory {
+    func createButton() -> UIButton
+}
+
+class CustomButtonFactory: ButtonFactory {
+
+    let title: String
+    let color: UIColor
+    let action: UIAction
+    
+    init(title: String, color: UIColor, action: UIAction) {
+        self.title = title
+        self.color = color
+        self.action = action
+    }
+    
+    func createButton() -> UIButton {
+        // Set attributes for button title
+        var attributes = AttributeContainer()
+        attributes.font = UIFont.boldSystemFont(ofSize: 18)
+
+        // Set configuration for button
+        var buttonConfiguration = UIButton.Configuration.filled()
+        buttonConfiguration.attributedTitle = AttributedString(title, attributes: attributes)
+        buttonConfiguration.baseBackgroundColor = color
+        
+        let button = UIButton(configuration: buttonConfiguration, primaryAction: action)
+        button.translatesAutoresizingMaskIntoConstraints = false
+                              
+        return button
+    }
+    
+}
+
 final class TaskViewController: UIViewController {
     
     private lazy var taskTextField: UITextField = {
@@ -18,27 +52,31 @@ final class TaskViewController: UIViewController {
     }()
     
     private lazy var saveButton: UIButton = {
-        // Set attributes for button title
-        var attributes = AttributeContainer()
-        attributes.font = UIFont.boldSystemFont(ofSize: 18)
-
-        // Set configuration for button
-        var buttonConfiguration = UIButton.Configuration.filled()
-        buttonConfiguration.attributedTitle = AttributedString("Save Task", attributes: attributes)
-        buttonConfiguration.baseBackgroundColor = UIColor(named: "milkBlue")
-        
-        let button = UIButton(configuration: buttonConfiguration, primaryAction: UIAction { [ unowned self ] _ in
-            save()
-        })
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+        let customButtonFactory = CustomButtonFactory(
+            title: "Save TAsk",
+            color: UIColor(named: "Milk Blue") ?? .systemBlue,
+            action: UIAction { [unowned self] _ in
+                save()
+            }
+        )
+        return customButtonFactory.createButton()
+    }()
+    
+    private lazy var cancelButton: UIButton = {
+        let customButttonFactory = CustomButtonFactory(
+            title: "CANCEL",
+            color: .red,
+            action: UIAction { [unowned self] _ in
+                dismiss(animated: true)
+            }
+        )
+        return customButttonFactory.createButton()
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupSubviews(taskTextField, saveButton)
+        setupSubviews(taskTextField, saveButton, cancelButton)
         setConstraints()
     }
     
@@ -66,6 +104,11 @@ private extension TaskViewController {
             saveButton.topAnchor.constraint(equalTo: taskTextField.bottomAnchor, constant: 20),
             saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
+        ])
+        NSLayoutConstraint.activate([
+            cancelButton.topAnchor.constraint(equalTo: saveButton.bottomAnchor, constant: 20),
+            cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
         ])
     }
 }
