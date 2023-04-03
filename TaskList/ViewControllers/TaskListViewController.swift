@@ -6,13 +6,15 @@
 //
 
 import UIKit
-import CoreData
+
 
 
 final class TaskListViewController: UITableViewController {
-    private let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     private let cellID = "task"
     private var taskList: [Task] = []
+    private let storageManager = StorageManager.shared
+    private lazy var viewContext = storageManager.persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,14 +58,7 @@ final class TaskListViewController: UITableViewController {
         let index = IndexPath(row: taskList.count - 1, section: 0)
         tableView.insertRows(at: [index], with: .automatic)
         
-        if viewContext.hasChanges  {
-            do {
-                try viewContext.save()
-    
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+        storageManager.saveContext()
         
     }
 }
