@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 
 protocol ButtonFactory {
     func createButton() -> UIButton
@@ -89,7 +88,6 @@ final class TaskViewController: UIViewController {
         delegate.reloadData()
         dismiss(animated: true)
     }
-    
 }
 
 //MARK: - Setup UI
