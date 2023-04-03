@@ -62,8 +62,7 @@
 				8030B4DA29DAABCD006D6606 /* ViewControllers */,
 				8030B4DB29DAABDA006D6606 /* Storyboards */,
 				8030B4DC29DAABFC006D6606 /* Resources */,
-				8030B4C929D9ECD5006D6606 /* TaskList.xcdatamodeld */,
-				8030B4DD29DAAD8F006D6606 /* StorageManager.swift */,
+				80D7476E29DAE03400CA4F28 /* Services */,
 			);
 			path = TaskList;
 			sourceTree = "<group>";
@@ -97,9 +96,18 @@
 		8030B4DC29DAABFC006D6606 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8030B4C929D9ECD5006D6606 /* TaskList.xcdatamodeld */,
 				8030B4CC29D9ECDB006D6606 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		80D7476E29DAE03400CA4F28 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8030B4DD29DAAD8F006D6606 /* StorageManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
