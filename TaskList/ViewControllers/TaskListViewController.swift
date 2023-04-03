@@ -41,7 +41,7 @@ final class TaskListViewController: UITableViewController {
     }
     private func showAlert(withTitle: String, and message: String, action: AlertStyle) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-       
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
         alert.addAction(cancelAction)
         switch action {
@@ -132,6 +132,18 @@ extension TaskListViewController {
         cell.contentConfiguration = content
         return cell
     }
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        .delete
+    }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        viewContext.delete(taskList[indexPath.row])
+        fetchData()
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
 }
 
 //MARK: - UITableViewDelegate
@@ -139,5 +151,6 @@ extension TaskListViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         showAlert(withTitle: "Update Task", and: "Edit the task", action: .updateTask)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

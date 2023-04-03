@@ -37,4 +37,9 @@ final class StorageManager {
             }
         }
     }
+    
+    //MARK: - Core Data Deleting
+    func deleteContext () {
+        
+    }
 }
