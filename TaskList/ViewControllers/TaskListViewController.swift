@@ -7,7 +7,10 @@
 
 import UIKit
 
-
+enum AlertStyle {
+    case newTask
+    case updateTask
+}
 
 final class TaskListViewController: UITableViewController {
     
@@ -25,7 +28,7 @@ final class TaskListViewController: UITableViewController {
     }
     
     private func addNewTask() {
-       showAler(withTitle: "New TAsk", and: "What do you want to do")
+        showAlert(withTitle: "New Task", and: "What do you want to add", action: .newTask)
     }
     private func fetchData() {
         let fetchRequest = Task.fetchRequest()
@@ -36,17 +39,31 @@ final class TaskListViewController: UITableViewController {
             print(error.localizedDescription)
         }
     }
-    private func showAler(withTitle: String, and message: String) {
+    private func showAlert(withTitle: String, and message: String, action: AlertStyle) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Save Task", style: .default) { [weak self] _ in
-            guard let task = alert.textFields?.first?.text, !task.isEmpty else { return }
-            self?.save(task)
-        }
+       
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-        alert.addAction(saveAction)
         alert.addAction(cancelAction)
-        alert.addTextField { textField in
-            textField.placeholder = "New Task"
+        switch action {
+        case .newTask:
+            let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] _ in
+                guard let task = alert.textFields?.first?.text, !task.isEmpty else { return }
+                self?.save(task)
+            }
+            alert.addAction(saveAction)
+            alert.addTextField { textField in
+                textField.placeholder = "New Task"
+            }
+        case .updateTask:
+            let editAction = UIAlertAction(title: "Update", style: .default) { [weak self] _ in
+                guard let task = alert.textFields?.first?.text, !task.isEmpty else { return }
+                self?.edit(task)
+            }
+            alert.addAction(editAction)
+            alert.addTextField { [weak self] textField in
+                guard let rowNumber = self?.tableView.indexPathForSelectedRow?.row else { return }
+                textField.text = self?.taskList[rowNumber].title
+            }
         }
         present(alert, animated: true)
     }
@@ -55,11 +72,20 @@ final class TaskListViewController: UITableViewController {
         let task  = Task(context: viewContext)
         task.title = taskName
         taskList.append(task)
-        let index = IndexPath(row: taskList.count - 1, section: 0)
-        tableView.insertRows(at: [index], with: .automatic)
+        let indexPath = IndexPath(row: taskList.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
         
         storageManager.saveContext()
+    }
+    private func edit(_ taskName: String) {
+        let task = Task(context: viewContext)
+        task.title = taskName
+        guard let rowNumber = tableView.indexPathForSelectedRow?.row else { return }
+        taskList[rowNumber].title = taskName
+        let indexPath = IndexPath(row: rowNumber, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .automatic)
         
+        storageManager.saveContext()
     }
 }
 
@@ -105,5 +131,13 @@ extension TaskListViewController {
         content.text = task.title
         cell.contentConfiguration = content
         return cell
+    }
+}
+
+//MARK: - UITableViewDelegate
+extension TaskListViewController {
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        showAlert(withTitle: "Update Task", and: "Edit the task", action: .updateTask)
     }
 }
