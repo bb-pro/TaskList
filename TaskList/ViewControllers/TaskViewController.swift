@@ -39,7 +39,6 @@ class CustomButtonFactory: ButtonFactory {
                               
         return button
     }
-    
 }
 
 final class TaskViewController: UIViewController {
