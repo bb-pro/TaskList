@@ -24,6 +24,11 @@ final class StorageManager {
         })
         return container
     }()
+    
+    //MARK: - CRUD methods
+    
+    
+    
 
     // MARK: - Core Data Saving support
     func saveContext () {
