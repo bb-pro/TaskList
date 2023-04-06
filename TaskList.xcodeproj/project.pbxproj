@@ -14,6 +14,7 @@
 		8030B4CD29D9ECDB006D6606 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8030B4CC29D9ECDB006D6606 /* Assets.xcassets */; };
 		8030B4D029D9ECDB006D6606 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8030B4CE29D9ECDB006D6606 /* LaunchScreen.storyboard */; };
 		8030B4DE29DAAD8F006D6606 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8030B4DD29DAAD8F006D6606 /* StorageManager.swift */; };
+		80772FFB29DE87130085661B /* AlertControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80772FFA29DE87130085661B /* AlertControllerFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		8030B4CF29D9ECDB006D6606 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8030B4D129D9ECDB006D6606 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8030B4DD29DAAD8F006D6606 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		80772FFA29DE87130085661B /* AlertControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		8030B4BF29D9ECD5006D6606 /* TaskList */ = {
 			isa = PBXGroup;
 			children = (
+				80772FF929DE86FA0085661B /* Factories */,
 				8030B4D929DAABBB006D6606 /* App */,
 				8030B4DA29DAABCD006D6606 /* ViewControllers */,
 				8030B4DB29DAABDA006D6606 /* Storyboards */,
@@ -100,6 +103,14 @@
 				8030B4CC29D9ECDB006D6606 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		80772FF929DE86FA0085661B /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				80772FFA29DE87130085661B /* AlertControllerFactory.swift */,
+			);
+			path = Factories;
 			sourceTree = "<group>";
 		};
 		80D7476E29DAE03400CA4F28 /* Services */ = {
@@ -183,6 +194,7 @@
 				8030B4CB29D9ECD5006D6606 /* TaskList.xcdatamodeld in Sources */,
 				8030B4C529D9ECD5006D6606 /* TaskListViewController.swift in Sources */,
 				8030B4DE29DAAD8F006D6606 /* StorageManager.swift in Sources */,
+				80772FFB29DE87130085661B /* AlertControllerFactory.swift in Sources */,
 				8030B4C129D9ECD5006D6606 /* AppDelegate.swift in Sources */,
 				8030B4C329D9ECD5006D6606 /* SceneDelegate.swift in Sources */,
 			);
